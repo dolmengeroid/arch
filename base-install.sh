@@ -37,5 +37,5 @@ genfstab -U /mnt >> /mnt/etc/fstab
 nano /mnt/etc/fstab
 
 mkdir /mnt/arch
-cp arch/* /mnt/arch/
-arch-chroot /mnt
+echo "Type 'cp arch/* /mnt/arch'"
+echo "Then type 'arch-chroot /mnt'"
