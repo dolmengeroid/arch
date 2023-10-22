@@ -90,3 +90,5 @@ fi
 
 # default service
 systemctl enable NetworkManager.service
+systemctl enable bluetooth.service
+
