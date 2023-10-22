@@ -13,8 +13,8 @@ timedatectl
 echo '# Update mirrorlist'
 
 update_mirrorlist(){
-  sudo curl -sSL "https://archlinux.org/mirrorlist/?country=KR&protocol=https&ip_version=4" -o /etc/pacman.d/mirrorlist
-  sudo sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist
+  curl -sSL "https://archlinux.org/mirrorlist/?country=KR&protocol=https&ip_version=4" -o /etc/pacman.d/mirrorlist
+  sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist
 }
 
 
@@ -61,36 +61,39 @@ else
   echo 'Set btrfs filesystem...'
   echo 'Mounting root & boot & home...'
 
-  #mkfs.btrfs /dev/$ssd_name$r_pt_num
-  #cd /mnt
+  mkfs.btrfs /dev/$ssd_name$r_pt_num
+  cd /mnt
 
-  #btrfs su cr @
-  #btrfs su cr @home
-  #cd ..
+  btrfs su cr @
+  btrfs su cr @home
+  cd ..
 
-  #umount /mnt
-  #mount -o rw,ssd,noatime,discard=async,compress=zstd,space_cache=v2,subvol=@ /dev/$ssd_name$r_pt_num
+  umount /mnt
+  mount -o rw,ssd,noatime,discard=async,compress=zstd,space_cache=v2,subvol=@ /dev/$ssd_name$r_pt_num /mnt
 
-  #mkdir /mnt/home /mnt/boot
+  mkdir /mnt/home /mnt/boot
 
-  #mount -o rw,ssd,noatime,discard=async,compress=zstd,space_cache=v2,subvol=@home /dev/$ssd_name$r_pt_num/home
-  #mount /dev/$ssd_name$b_pt_num
+  mount -o rw,ssd,noatime,discard=async,compress=zstd,space_cache=v2,subvol=@home /dev/$ssd_name$r_pt_num /mnt/home
+  mount /dev/$ssd_name$b_pt_num /mnt/boot
 
 
 # Install Base Package
-  #pacstrap -K /mnt base linux linux-firmware sudo nano networkmanager
+  read -r -p "Install base Package? [Y/n]" confirm
+  if [[ ! "$confirm" =~ ^(n|N) ]]; then
+    pacstrap -K /mnt base linux linux-firmware sudo nano networkmanager
+  fi
+
 
 # genfstab
-  #genfstab -U /mnt >> /mnt/etc/fstab
-  #nano /mnt/etc/fstab
-
+  genfstab -U /mnt >> /mnt/etc/fstab
+  nano /mnt/etc/fstab
 fi
 
 
 # arch-chroot
 if [[ "$?" == "0" ]]; then
-  sudo mkdir /mnt/arch
-  sudo cp -r arch/* /mnt/arch/
+  mkdir /mnt/arch
+  cp -r arch/* /mnt/arch/
   arch-chroot /mnt /arch/setup.sh 
 fi
 
