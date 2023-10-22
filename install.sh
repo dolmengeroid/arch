@@ -83,10 +83,10 @@ else
 fi
 
 # Install Base Package
-  read -r -p "Install base Package? [Y/n]" confirm
-  if [[ ! "$confirm" =~ ^(n|N) ]]; then
-    pacstrap -K /mnt base linux linux-firmware sudo nano networkmanager
-  fi
+read -r -p "Install base Package? [Y/n]" confirm
+if [[ ! "$confirm" =~ ^(n|N) ]]; then
+  pacstrap -K /mnt base linux linux-firmware sudo nano networkmanager
+fi
 
 # arch-chroot
 if [[ "$?" == "0" ]]; then
