@@ -70,7 +70,7 @@ if [[ ! "$confirm" =~ ^(n|N) ]]; then
   pacman -S --noconfirm gdm gnome-shell gnome-shell-extensions gnome-keyring seahorse gnome-backgrounds \
   gnome-control-center gnome-font-viewer xdg-user-dirs-gtk \
   gnome-power-manager gnome-system-monitor gnome-terminal nautilus gvfs-mtp eog evince \
-  file-roller gnome-tweaks firefox timeshift
+  file-roller gnome-tweaks
 
 # start gnome by default
   systemctl enable gdm
@@ -82,7 +82,10 @@ if [[ ! "$confirm" =~ ^(n|N) ]]; then
 
 # KDE
   pacman -S --noconfirm --needed sddm xorg
-  pacman -S --noconfirm --needed plasma-desktop firefox plasma-nm plasma-pa dolphin konsole kdeplasma-addons kde-gtk-config breeze-gtk timeshift
+  pacman -S --noconfirm --needed plasma-desktop plasma-nm plasma-pa dolphin konsole kdeplasma-addons kde-gtk-config breeze-gtk
+
+# install common package
+  pacman -S --noconfirm --needed firefox timeshift ibus-hangul
 
 # start kde by default
   systemctl enable sddm
