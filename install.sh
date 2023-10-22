@@ -76,6 +76,9 @@ else
   mount -o rw,ssd,noatime,discard=async,compress=zstd,space_cache=v2,subvol=@home /dev/$ssd_name$r_pt_num /mnt/home
   mount /dev/$ssd_name$b_pt_num /mnt/boot
 
+  if [[ "$?" == "0" ]]; then
+    echo 'Mount OK' 
+  fi
 
 # genfstab
   genfstab -U /mnt >> /mnt/etc/fstab
