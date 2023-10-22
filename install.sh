@@ -77,18 +77,16 @@ else
   mount /dev/$ssd_name$b_pt_num /mnt/boot
 
 
-# Install Base Package
-  read -r -p "Install base Package? [Y/n]" confirm
-  if [[ ! "$confirm" =~ ^(n|N) ]]; then
-    pacstrap -K /mnt base linux linux-firmware sudo nano networkmanager
-  fi
-
-
 # genfstab
   genfstab -U /mnt >> /mnt/etc/fstab
   nano /mnt/etc/fstab
 fi
 
+# Install Base Package
+  read -r -p "Install base Package? [Y/n]" confirm
+  if [[ ! "$confirm" =~ ^(n|N) ]]; then
+    pacstrap -K /mnt base linux linux-firmware sudo nano networkmanager
+  fi
 
 # arch-chroot
 if [[ "$?" == "0" ]]; then
