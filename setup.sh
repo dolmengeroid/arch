@@ -16,7 +16,7 @@ echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 echo archlinux >> /etc/hostname
 
 # Set Hosts
-nano /etc/hosts
+echo -e "127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\tarchlinux" >> /etc/hosts
 
 # Set root password
 echo '# Set root password'
@@ -84,7 +84,7 @@ read -r -p "Install KDE Plasma? [Y/n]" confirm
 if [[ ! "$confirm" =~ ^(n|N) ]]; then
 
 # KDE
-  pacman -S --noconfirm --needed plasma
+  pacman -S --noconfirm --needed plasma dolphin konsole ark
 
 # start kde by default
   systemctl enable sddm
@@ -92,6 +92,10 @@ fi
 
 # install common package
   pacman -S --noconfirm --needed firefox timeshift ibus-hangul
+
+# start ibus daemon
+echo -e "\n# ibus daemon\nexport GTK_IM_MODULE=ibus\nexport XMODIFIERS=@im=ibus\nexport QT_IM_MODULE=ibus\n\nibus-daemon -drx" >> ~/.bashrc
+
 
 # default service
 systemctl enable NetworkManager.service
