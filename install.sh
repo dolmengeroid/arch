@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 # print command before executing, and exit when any command fails
-set -xe
+set -e
 
 # Set timezone
 clear
