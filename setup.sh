@@ -35,7 +35,7 @@ sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 pacman -S intel-ucode os-prober grub efibootmgr pulseaudio sof-firmware 
 
 # Boot 
-sed -i 's/^# GRUB_DISABLE_OS_PROBER="true"/GRUB_DISABLE_OS_PROBER=false/' /usr/bin/grub-mkconfig
+sed -i 's/^GRUB_DISABLE_OS_PROBER="true"/GRUB_DISABLE_OS_PROBER=false/' /usr/bin/grub-mkconfig
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=archlinux
 
 grub-mkconfig -o /boot/grub/grub.cfg
