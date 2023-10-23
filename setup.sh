@@ -19,9 +19,11 @@ echo archlinux >> /etc/hostname
 nano /etc/hosts
 
 # Set root password
+echo '# Set root password'
 passwd
 
 # Add User account
+echo '# Add User account'
 useradd -m -g users -G wheel -s /bin/bash dalt
 passwd dalt
 
@@ -40,32 +42,34 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 
 # graphics driver
-nvidia=$(lspci | grep -e VGA -e 3D | grep 'NVIDIA' 2> /dev/null || echo '')
-amd=$(lspci | grep -e VGA -e 3D | grep 'AMD' 2> /dev/null || echo '')
-intel=$(lspci | grep -e VGA -e 3D | grep 'Intel' 2> /dev/null || echo '')
-if [[ -n "$nvidia" ]]; then
-  pacman -S --noconfirm nvidia
-fi
-
-if [[ -n "$amd" ]]; then
-  pacman -S --noconfirm xf86-video-amdgpu
-fi
-
-if [[ -n "$intel" ]]; then
-  pacman -S --noconfirm xf86-video-intel
-fi
-
-if [[ -n "$nvidia" && -n "$intel" ]]; then
-  pacman -S --noconfirm bumblebee
-  gpasswd -a $username bumblebee
-  systemctl enable bumblebeed
-fi
-
-
-read -r -p "Install GNOME? [Y/n]" confirm
+read -r -p "Install VGA Driver? [Y/n]" confirm
 if [[ ! "$confirm" =~ ^(n|N) ]]; then
 
+  nvidia=$(lspci | grep -e VGA -e 3D | grep 'NVIDIA' 2> /dev/null || echo '')
+  amd=$(lspci | grep -e VGA -e 3D | grep 'AMD' 2> /dev/null || echo '')
+  intel=$(lspci | grep -e VGA -e 3D | grep 'Intel' 2> /dev/null || echo '')
+  if [[ -n "$nvidia" ]]; then
+    pacman -S --noconfirm nvidia
+  fi
+
+  if [[ -n "$amd" ]]; then
+    pacman -S --noconfirm xf86-video-amdgpu
+  fi
+
+  if [[ -n "$intel" ]]; then
+    pacman -S --noconfirm xf86-video-intel
+  fi
+
+  if [[ -n "$nvidia" && -n "$intel" ]]; then
+    pacman -S --noconfirm bumblebee
+    gpasswd -a $username bumblebee
+    systemctl enable bumblebeed
+  fi
+fi
+
 # gnome
+read -r -p "Install GNOME? [Y/n]" confirm
+if [[ ! "$confirm" =~ ^(n|N) ]]; then
   pacman -S --noconfirm gdm gnome-shell gnome-shell-extensions gnome-keyring seahorse gnome-backgrounds \
   gnome-control-center gnome-font-viewer xdg-user-dirs-gtk \
   gnome-power-manager gnome-system-monitor gnome-terminal nautilus gvfs-mtp eog evince \
