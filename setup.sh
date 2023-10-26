@@ -24,7 +24,7 @@ passwd
 
 # Add User account
 echo '# Add User account'
-useradd -m -g users -G wheel -s /bin/bash dalt
+useradd -m -G wheel -s /bin/bash dalt
 passwd dalt
 
 # Config sudo
@@ -79,11 +79,9 @@ if [[ ! "$confirm" =~ ^(n|N) ]]; then
   systemctl enable gdm
 fi
 
-
+# KDE
 read -r -p "Install KDE Plasma? [Y/n]" confirm
 if [[ ! "$confirm" =~ ^(n|N) ]]; then
-
-# KDE
   pacman -S --noconfirm --needed plasma dolphin konsole ark
 
 # start kde by default
