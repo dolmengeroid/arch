@@ -84,7 +84,7 @@ else
 # Install Base Package
   read -r -p "Install base Package? [Y/n]" confirm
   if [[ ! "$confirm" =~ ^(n|N) ]]; then
-    pacstrap -K /mnt base linux linux-firmware sudo nano networkmanager
+    pacstrap -K /mnt base base-devel linux linux-firmware sudo nano networkmanager
   fi
 
 fi
