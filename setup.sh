@@ -89,7 +89,7 @@ if [[ ! "$confirm" =~ ^(n|N) ]]; then
 fi
 
 # install common package
-  pacman -S --noconfirm --needed firefox timeshift ibus-hangul
+  pacman -S --noconfirm --needed firefox timeshift btrfs-progs bluez ibus-hangul
 
 # start ibus daemon
 echo -e "\n# ibus daemon\nexport GTK_IM_MODULE=ibus\nexport XMODIFIERS=@im=ibus\nexport QT_IM_MODULE=ibus\n\nibus-daemon -drx" >> ~/.bashrc
