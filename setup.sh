@@ -82,7 +82,7 @@ fi
 # KDE
 read -r -p "Install KDE Plasma? [Y/n]" confirm
 if [[ ! "$confirm" =~ ^(n|N) ]]; then
-  pacman -S --noconfirm --needed plasma dolphin konsole ark
+  pacman -S --noconfirm --needed plasma dolphin konsole
 
 # start kde by default
   systemctl enable sddm
@@ -90,7 +90,7 @@ fi
 
 # install common package
   pacman -S --noconfirm --needed firefox timeshift btrfs-progs bluez ibus-hangul noto-fonts-cjk ttf-roboto \
-  ttf-jetbrains-mono ttf-jetbrains-mono-nerd
+  ttf-jetbrains-mono ttf-jetbrains-mono-nerd ark
 
 # start ibus daemon
 echo -e "\n# ibus daemon\nexport GTK_IM_MODULE=ibus\nexport XMODIFIERS=@im=ibus\nexport QT_IM_MODULE=ibus\n\nibus-daemon -drx" >> ~/.bashrc
