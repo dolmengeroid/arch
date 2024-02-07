@@ -36,6 +36,16 @@ export QT_IM_MODULE=ibus
   
 ibus-daemon -drx  
 
+### 해야할 것들!!  
+KDE 로그인 페이지 테마 수정  
+task bar 정리  
+단축키 정리  
+flatpak
+allup 생성 --noconfirm  
+dbeaver 
+vscode  
+
+
 
 
  
